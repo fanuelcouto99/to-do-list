@@ -1,5 +1,6 @@
 import { Form } from "@/components/Form";
 import { Header } from "../components/Header";
+import { EmptyToDo } from "@/components/EmptyToDo";
 
 export default function Home() {
   return (
@@ -7,6 +8,8 @@ export default function Home() {
       <Header />
 
       <Form />
+
+      <EmptyToDo />
     </div>
   );
 };
