@@ -1,6 +1,7 @@
 import { Form } from "@/components/Form";
 import { Header } from "../components/Header";
 import { EmptyToDo } from "@/components/EmptyToDo";
+import { ToDoList } from "@/components/ToDoList";
 
 export default function Home() {
   return (
@@ -9,7 +10,9 @@ export default function Home() {
 
       <Form />
 
-      <EmptyToDo />
+      {/* <EmptyToDo /> */}
+
+      <ToDoList />
     </div>
   );
 };
