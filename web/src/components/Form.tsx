@@ -15,6 +15,13 @@ export function Form() {
         setNewTask('');
     };
 
+    function deleteTask(taskToDelete: string) {
+        const tasksWithoutDeleteOne = tasks.filter(task => {
+            return task !== taskToDelete;
+        });
+        setTasks(tasksWithoutDeleteOne);
+    };
+
     return (
         <div className="flex flex-col items-center justify-center mt-[calc(0px-1.5rem-6px)]">
             <form onSubmit={handleCreateNewTask} className="w-[46rem] gap-8 flex items-center justify-center">
@@ -32,7 +39,7 @@ export function Form() {
                 </button>
             </form>
 
-            {tasks.length === 0 ? <EmptyToDo /> : <ToDoList tasksInserts={tasks}/>}
+            {tasks.length === 0 ? <EmptyToDo /> : <ToDoList tasksInserts={tasks} onDeleteTask={deleteTask}/>}
         </div>
     );
 };

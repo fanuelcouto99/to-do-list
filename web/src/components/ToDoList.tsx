@@ -5,11 +5,16 @@ import { useEffect, useState } from "react";
 
 interface TasksProps {
     tasksInserts: string[];
+    onDeleteTask: (task: string) => void;
 };
 
-export function ToDoList({ tasksInserts }: TasksProps) {
+export function ToDoList({ tasksInserts, onDeleteTask }: TasksProps) {
 
     const [isChecked, setIsChecked] = useState(false);
+
+    function handleDeleteTask(task: string) {
+        onDeleteTask(task);
+    };
 
     return (
         <div className="flex flex-col items-center justify-center">
@@ -33,7 +38,7 @@ export function ToDoList({ tasksInserts }: TasksProps) {
                                     {taskInsert}
                                 </span>
                             </div>
-                            <Trash2 size={18} color="#808080" className="cursor-pointer hover:stroke-red-500 transition-colors self-start" />
+                            <Trash2 size={18} color="#808080" onClick={() => handleDeleteTask(taskInsert)} className="cursor-pointer hover:stroke-red-500 transition-colors self-start" />
                         </div>
                     </>
                 )
