@@ -3,24 +3,54 @@ import { PlusCircle } from "lucide-react";
 import { FormEvent, useState } from "react";
 import { EmptyToDo } from "./EmptyToDo";
 import { ToDoList } from "./ToDoList";
+import { v4 as uuid } from 'uuid';
+import { CountTask } from "./CountTask";
+
+interface TaskProps {
+    id: string;
+    title: string;
+    isCompleted: boolean;
+};
 
 export function Form() {
 
-    const [tasks, setTasks] = useState<string[]>([]);
+    const [tasks, setTasks] = useState<TaskProps[]>([]);
     const [newTask, setNewTask] = useState('');
 
     function handleCreateNewTask(event: FormEvent) {
         event.preventDefault();
-        setTasks([...tasks, newTask]);
+        setTasks([...tasks,
+        {
+            id: uuid(),
+            title: newTask,
+            isCompleted: false
+        }
+        ]);
         setNewTask('');
+        console.log(tasks)
     };
 
     function deleteTask(taskToDelete: string) {
         const tasksWithoutDeleteOne = tasks.filter(task => {
-            return task !== taskToDelete;
+            return task.id !== taskToDelete;
         });
         setTasks(tasksWithoutDeleteOne);
     };
+
+    function handleToggleTaskComplet(idTask: string) {
+        const tasksCompleted = tasks.map((task) => {
+            if (task.id === idTask) {
+                task.isCompleted = !task.isCompleted;
+            };
+
+            return task;
+        });
+        setTasks(tasksCompleted);
+    };
+
+    const tasksCompleted = tasks.filter((task) => {
+        return task.isCompleted !== false;
+    });
 
     return (
         <div className="flex flex-col items-center justify-center mt-[calc(0px-1.5rem-6px)]">
@@ -39,7 +69,20 @@ export function Form() {
                 </button>
             </form>
 
-            {tasks.length === 0 ? <EmptyToDo /> : <ToDoList tasksInserts={tasks} onDeleteTask={deleteTask}/>}
+            <CountTask numberTask={tasks.length} completedTask={tasksCompleted.length} />
+
+            {tasks.length === 0 ? <EmptyToDo /> : tasks.map((task) => {
+                return (
+                    <ToDoList
+                        key={task.id}
+                        id={task.id}
+                        title={task.title}
+                        isCompleted={task.isCompleted}
+                        onToggleTask={handleToggleTaskComplet}
+                        onDeleteTask={deleteTask}
+                    />
+                )
+            })}
         </div>
     );
 };
