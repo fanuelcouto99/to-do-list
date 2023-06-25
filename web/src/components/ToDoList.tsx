@@ -1,53 +1,44 @@
+'use client'
 import { Trash2 } from "lucide-react";
+import { CountTask } from "./CountTask";
+import { useEffect, useState } from "react";
 
-export function ToDoList() {
+interface TasksProps {
+    tasksInserts: string[];
+};
+
+export function ToDoList({ tasksInserts }: TasksProps) {
+
+    const [isChecked, setIsChecked] = useState(false);
+
     return (
         <div className="flex flex-col items-center justify-center">
-            <div className="w-[46rem] mt-6 bg-gray-500 p-4 rounded-lg flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                    <input
-                        type="checkbox"
-                        name="toDoItem"
-                        id="toDoItem"
-                        className="flex self-start w-5 h-5 rounded-full mt-1 bg-transparent border border-blue-500 hover:border-blue-600 cursor-pointer hover:bg-blue-600/20 transition-colors focus:ring-offset-0 focus:ring-0 checked:bg-purple-600 hover:checked:bg-purple-500"
-                    />
-                    <span className="text-gray-100 text-sm w-[39.5rem]">
-                        Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.
-                    </span>
-                </div>
-                <Trash2 size={18} color="#808080" className="cursor-pointer hover:stroke-red-500 transition-colors self-start" />
-            </div>
 
-            <div className="w-[46rem] mt-6 bg-gray-500 p-4 rounded-lg flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                    <input
-                        type="checkbox"
-                        name="toDoItem"
-                        id="toDoItem"
-                        className="flex self-start w-5 h-5 rounded-full mt-1 bg-transparent border border-blue-500 hover:border-blue-600 cursor-pointer hover:bg-blue-600/20 transition-colors focus:ring-offset-0 focus:ring-0 checked:bg-purple-600 hover:checked:bg-purple-500"
-                    />
-                    <span className="text-gray-100 text-sm w-[39.5rem]">
-                        Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.
-                    </span>
-                </div>
-                <Trash2 size={18} color="#808080" className="cursor-pointer hover:stroke-red-500 transition-colors self-start" />
-            </div>
+            <CountTask numberTask={tasksInserts.length}/>
 
-            <div className="w-[46rem] mt-6 bg-gray-500 p-4 rounded-lg flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                    <input
-                        type="checkbox"
-                        name="toDoItem"
-                        id="toDoItem"
-                        checked
-                        className="flex self-start w-5 h-5 rounded-full mt-1 bg-transparent border border-blue-500 hover:border-blue-600 cursor-pointer hover:bg-blue-600/20 transition-colors focus:ring-offset-0 focus:ring-0 checked:bg-purple-600 hover:checked:bg-purple-500"
-                    />
-                    <span className="text-gray-300 line-through text-sm w-[39.5rem]">
-                        Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.
-                    </span>
-                </div>
-                <Trash2 size={18} color="#808080" className="cursor-pointer hover:stroke-red-500 transition-colors self-start" />
-            </div>
+            {tasksInserts.map((taskInsert, index) => {
+                return (
+                    <>
+                        <div key={index+1} className="w-[46rem] mt-6 bg-gray-500 p-4 rounded-lg flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <input
+                                    type="checkbox"
+                                    name="toDoItem"
+                                    id="toDoItem"
+                                    value="true"
+                                    onChange={event => setIsChecked(event.target.checked)}
+                                    className="flex self-start w-5 h-5 rounded-full mt-1 bg-transparent border border-blue-500 hover:border-blue-600 cursor-pointer hover:bg-blue-600/20 transition-colors focus:ring-offset-0 focus:ring-0 checked:bg-purple-600 hover:checked:bg-purple-500"
+                                />
+                                <span className={`text-sm w-[39.5rem] transition-all ${isChecked ? 'text-gray-300 line-through' : 'text-gray-100'}`}>
+                                    {taskInsert}
+                                </span>
+                            </div>
+                            <Trash2 size={18} color="#808080" className="cursor-pointer hover:stroke-red-500 transition-colors self-start" />
+                        </div>
+                    </>
+                )
+            })}
+            <div className="mt-4"/>
         </div>
     );
 };

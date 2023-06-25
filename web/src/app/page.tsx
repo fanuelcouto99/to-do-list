@@ -9,10 +9,6 @@ export default function Home() {
       <Header />
 
       <Form />
-
-      {/* <EmptyToDo /> */}
-
-      <ToDoList />
     </div>
   );
 };
