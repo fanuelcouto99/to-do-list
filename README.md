@@ -27,7 +27,7 @@ Aplicação desenvolvida como desafio para o Ignite, bootcamp da Rocketseat para
 
 ### :pencil: **Como usar na web**
 
-Para poder fazer uma demonstração do projeto, basta acessar o link: [Vercel](https://ignite-feed-rhxl5c3pl-fanuelcouto99.vercel.app/)
+Para poder fazer uma demonstração do projeto, basta acessar o link: [Vercel](https://to-do-fanuel-couto.vercel.app/)
 
 <hr>
 
